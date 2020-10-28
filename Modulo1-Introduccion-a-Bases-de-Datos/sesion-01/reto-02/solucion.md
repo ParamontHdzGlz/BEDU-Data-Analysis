@@ -1,6 +1,6 @@
 ## Reto 2: Solución:
 - pregunta 1: Empleado con puesto 4  
-![solucion1](imagenes/s1r2pregunta1.png)  
+![solucion1](imagenes/s1r2pregunta1.png){ width=60% } 
 - pregunta2: puestos con salario mayor a $10,000  
 ![solucion2](imagenes/s1r2pregunta2.png)  
 - pregunta 3: artículos con precio mayor a $1,000 e iva mayor a $100  
