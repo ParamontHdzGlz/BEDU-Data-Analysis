@@ -1,4 +1,5 @@
-**Tipos de dato usados en la base de datos "tienda":**
+## Reto 1: Solución
+Tipos de dato usados en la base de datos "tienda":
 |Tipo   |Descripción   |
 | :------------ | :------------ |
 |INT  |Números enteros guardados en 4 bytes con valor de -2147483648 al 2147483647   |
