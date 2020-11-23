@@ -1,0 +1,21 @@
+
+
+base_de_datos : "sample_airbnb"
+coleccion : "listingsAndReviews"
+
+pregunta1:{
+    house_rules: /no *part(y|ie)/i
+}
+
+pregunta2:{
+    house_rules: /pets? *(allowed|permitted)/i
+}
+
+pregunta3:{
+    house_rules: /not? *smok(er?|ing)/i
+}
+
+pregunta4:{
+    house_rules: /not? *smok(er?|ing).*not? *part(y|ie)/i
+}
+

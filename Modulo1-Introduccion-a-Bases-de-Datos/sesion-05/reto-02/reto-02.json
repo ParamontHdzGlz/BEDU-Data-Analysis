@@ -1,0 +1,13 @@
+base_de_datos : "sample_airbnb"
+coleccion : "listingsAndReviews"
+
+{
+    number_of_reviews: {
+        $gte: 50
+    },
+    "review_scores.review_scores_rating": {
+        $gte: 80
+    },
+    amenities: /ethernet/i,
+    "address.country_code": "BR"
+}

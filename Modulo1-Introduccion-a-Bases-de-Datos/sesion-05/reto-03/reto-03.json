@@ -1,0 +1,12 @@
+base_de_datos : "sample_airbnb"
+coleccion : "listingsAndReviews"
+
+[{
+    $match: {
+        amenities: {
+            $in: [/wifi/i, /ethernet/i]
+        }
+    }
+}, {
+    $count: 'arbnb\'s conacceso a wifi o ethernet'
+}]
