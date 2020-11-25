@@ -9,8 +9,8 @@
 	);  
    ```
 
-2.- Crear la tabla movies.
-	Cambiamos los pipes (|) en el campo de géneros por punto y coma (;), posteriormente cambiamos los delimitadores de doble dos puntos (::) por pipes (|). De esta forma, al subir el archivo como .csv, mysql reconocerá los delimitadores.
+2.- Crear la tabla movies.  
+	Cambiamos los pipes (|) en el campo de géneros por punto y coma (;), posteriormente cambiamos los delimitadores de doble dos puntos (::) por pipes (|). De esta forma, al subir el archivo como .csv, mysql reconocerá los delimitadores.  
 
 3.- Definir los campos y tipos de datos para la tabla ratings haciendo uso de los archivos ratings.dat y README.
    ```sql  
@@ -32,7 +32,7 @@
 	);  
    ```
 
-4.- Crear la tabla ratings.
+4.- Crear la tabla ratings.  
 	Hacemos uso de la herramienta Table Data Import Wizard, en este caso, cambiando los caracteres de boble dos puntos (::) por comas (,) y guardando el documento como .csv.
 
 
