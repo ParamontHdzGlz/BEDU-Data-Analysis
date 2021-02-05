@@ -4,7 +4,7 @@ library(dplyr)
 library(ggplot2)
 library(boot)
 
-setwd("C:/Paramont/Pogra/Cursos/BEDU/Modulo2-Programacion-con-R/postwork/postwork-04/data")
+setwd("C:/Paramont/Pogra/Cursos/BEDU/Modulo2-Programacion-con-R/postwork-04/data")
 
 #Obteniendo el dataframe del postwork-02
 #{
@@ -19,9 +19,9 @@ setwd("C:/Paramont/Pogra/Cursos/BEDU/Modulo2-Programacion-con-R/postwork/postwor
   download.file(url=url.17.18, destfile="season17-18.csv", mode="wb")
   # Haciendo una lista que contiene a todos los csv descargados en la carpeta actual.
   data.list <- lapply(dir(), read.csv)
-  # Conservando sÃƒÂ³lo las columnas indicadas en los df de la lista.
+  # Conservando solo las columnas indicadas en los df de la lista.
   data.list <- lapply(data.list, select, Date:FTR)
-  # Eliminamos la columna de Time del 3er dataframe, ya que es el ÃƒÂºnico que contiene dicho dato.
+  # Eliminamos la columna de Time del 3er dataframe, ya que es el unico que contiene dicho dato.
   data.list[[3]]$Time <- NULL
   # Transformando las fechas en Date de srings a objetos Date
   for(i in 1:length(data.list)){
@@ -35,43 +35,35 @@ setwd("C:/Paramont/Pogra/Cursos/BEDU/Modulo2-Programacion-con-R/postwork/postwor
 ### 1 ###
 
 # total de partidos jugados en toda la temporada
-total.matches <- dim(data)[1]
+n <- dim(data)[1]
 # Calculo de probabilidad (marginal) de que un equipo jugando en casa anote x=0,1,...8 goles  
-m.prob.home <- table(data$FTHG)/total.matches
+m.prob.home <- table(data$FTHG)/n
 # Calculo de probabilidad (marginal) de que un equipo jugando como visitante anote x=0,1,...6 goles  
-m.prob.away <- table(data$FTAG)/total.matches
+m.prob.away <- table(data$FTAG)/n
 # Calculo de probabilidad (conjunto) de que un equipo visitante anote x=0,1,...6 goles y un equipo anfitrin anote x=0,1,...8 goles
-c.prob <- table(data$FTHG, data$FTAG)/total.matches
+c.prob <- table(data$FTHG, data$FTAG)/n
 # Creando la tabla de cocientes:probabilidades conjuntas entre producto de probabilidades margiales.
 cocientes <- c.prob/outer(m.prob.home, m.prob.away, '*')
-
+cocientes
+heatmap(cocientes)
 
 ### 2 ###
 
 # Realizando proceso bootstrap
-# Simulamos un año de partidos escogiendo aleatoriamente 380 partidos (380 es lo que tenemos en un anno)
+# Simulamos un aÃ±o de partidos escogiendo aleatoriamente 380 partidos (380 es lo que tenemos en un anno)
 set.seed(1) # Se especifica una semilla para poder repetir los resultados
-matches <- sample(rownames(data), size=380, replace=TRUE)
-data2 <- data[matches,]
 
-# Probabilidad marginal de casa con anno simulado
-m.prob.home2 <- table(data2$FTHG)/dim(data2)[1]
-# Probabilidad marginal de visitante con anno simulado
-m.prob.away2 <- table(data2$FTAG)/dim(data2)[1]
-# Probabilidad conjunta casa y visitante
-c.prob2 <- table(data2$FTHG, data2$FTAG)/dim(data2)[1]
-# Cocientes: probabilidad conjunta entre multiplicacion de marginales
-cocientes2 <- c.prob2/outer(m.prob.home2, m.prob.away2, '*')
-
-# Usamos la funcion boot() para obtener varias medias de cocientes2
-medias <- boot(as.vector(cocientes2), function(d,i){mean(d[i])}, 10000)$t
+# Usamos la funcion boot() para obtener varias medias de cocientes
+medias <- boot(as.vector(cocientes), function(d,i){mean(d[i])}, 10000)$t
 
 ggplot() +
   geom_histogram(aes(medias), bins = 50) +
   geom_vline(aes(xintercept = mean(medias))) +
-  ggtitle("Histograma de distribución de medias muestrales")
+  ggtitle("Histograma de distribuci?n de medias muestrales")
+
+mean(medias)#media del histograma
 
 ### Conclusion ###
 # Se observa que la media es diferente a 1. 
-# Por lo tanto, la anotacion de goles de los equipos anfitriones y visitantes no son independientes entre sí.
+# Por lo tanto, la anotacion de goles de los equipos anfitriones y visitantes no son independientes entre s?.
 # Es decir, el numero de goles del anfitrion depende del numero de goles del visitante y viceversa.
